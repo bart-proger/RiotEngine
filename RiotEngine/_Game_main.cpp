@@ -1,11 +1,11 @@
 #include <iostream>
-#include "RiotEngineApp.h"
+#include "_Game.h"
 
 int SDL_main(int argc, char** argv)
 {
-	RiotEngineApp app;
+	_Game app;
 
-	if (app.init("RiotEngine demo", 640, 480))
+	if (app.init("RiotEngine demo game", 640, 480))
 	{
 		app.run();
 	}

@@ -8,6 +8,7 @@ window_(nullptr)
 
 RiotEngineApp::~RiotEngineApp()
 {
+	free();
 	SDL_Quit();
 }
 
@@ -30,15 +31,12 @@ bool RiotEngineApp::init(string title, int width, int height)
 		return false;
 	}
 	//Initialize graphics
-	if (graphics_.init(window_))
+	if (graphics_.init(window_, width, height))
 	{
-		width_ = width;
-		height_ = height;
-
 		return onInit();
 	}
-	else
-		return false;
+
+	return false;
 }
 
 void RiotEngineApp::free()
@@ -58,15 +56,15 @@ void RiotEngineApp::run()
 	SDL_Event e;
 	bool quit = false;
 
-	while(!quit)
+	while (!quit)
 	{
-		while(SDL_PollEvent(&e) != 0)
+		while (SDL_PollEvent(&e) != 0)
 		{
 			if (e.type == SDL_QUIT)
 			{
 				quit = true;
 			}
-			else 
+			else
 			{
 				switch (e.type)
 				{
@@ -98,9 +96,8 @@ void RiotEngineApp::run()
 		onUpdate();
 		onDraw();
 
-        graphics_.present(window_);
+		SDL_GL_SwapWindow(window_);
 	}
-	free();
 }
 
 void RiotEngineApp::quit()

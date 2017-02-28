@@ -19,14 +19,18 @@ class Graphics
 public:
 	Graphics();
 	~Graphics();
-	bool init(SDL_Window *);
+	bool init(SDL_Window *, int width, int height);
 	void free();
 
-	void present(SDL_Window *);
+	void begin2D();
+	void end2D();
+
+	void drawRect(int x, int y, int w, int h);
 
 private:
 	bool initOpenGL();
 
 	SDL_GLContext glContext_;
+	int width_, height_;
 };
 

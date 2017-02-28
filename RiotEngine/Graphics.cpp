@@ -16,7 +16,7 @@ Graphics::~Graphics()
 	IMG_Quit();
 }
 
-bool Graphics::init(SDL_Window *window)
+bool Graphics::init(SDL_Window *window, int width, int height)
 {
 	glContext_ = SDL_GL_CreateContext(window); 
 	if (!glContext_)
@@ -43,6 +43,9 @@ bool Graphics::init(SDL_Window *window)
 		return false;
 	}
 
+	width_ = width;
+	height_ = height;
+
 	//Initialize SDL_ttf
 // 	if (TTF_Init() == -1)
 // 	{
@@ -65,11 +68,6 @@ void Graphics::free()
 	}
 }
 
-void Graphics::present(SDL_Window *window)
-{
-	SDL_GL_SwapWindow(window);
-}
-
 bool Graphics::initOpenGL()
 {
 	glMatrixMode(GL_PROJECTION);
@@ -79,7 +77,7 @@ bool Graphics::initOpenGL()
 	glLoadIdentity();
 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.f);
-
+	glClearDepth(1.f);
 
 	GLenum error = GL_NO_ERROR;
 	error = glGetError();
@@ -92,6 +90,47 @@ bool Graphics::initOpenGL()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	return true;
+}
+
+void Graphics::begin2D()
+{
+	//  glPushAttrib(GL_DEPTH_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST);
+
+	glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, width_, height_, 0, -1, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+}
+
+void Graphics::end2D()
+{
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+
+	//	glPopAttrib();
+}
+
+void Graphics::drawRect(int x, int y, int w, int h)
+{
+	glBegin(GL_LINE_LOOP);
+		glVertex2i(x, y);
+		glVertex2i(x, y + h);
+		glVertex2i(x + w, y + h);
+		glVertex2i(x + w, y);
+	glEnd();
 }
 
 /*
