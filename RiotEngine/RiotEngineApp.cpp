@@ -16,17 +16,20 @@ bool RiotEngineApp::init(string title, int width, int height)
 	//Initialize SDL subsystems
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL could not initialize! SDL_Error: %s", SDL_GetError());
+		SDL_Log("[error] SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
+	//Use OpenGL 2.1
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	//Create window
 	if (!(window_ = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-										width, height, SDL_WINDOW_SHOWN)))
+										width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN)))
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window could not be created! SDL_Error: %s", SDL_GetError());
+		SDL_Log("[error] Window could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
-	//Create renderer for window
+	//Initialize graphics
 	if (graphics_.init(window_))
 	{
 		width_ = width;
@@ -34,7 +37,8 @@ bool RiotEngineApp::init(string title, int width, int height)
 
 		return onInit();
 	}
-	return false;
+	else
+		return false;
 }
 
 void RiotEngineApp::free()
@@ -94,7 +98,7 @@ void RiotEngineApp::run()
 		onUpdate();
 		onDraw();
 
-        graphics_.present();
+        graphics_.present(window_);
 	}
 	free();
 }

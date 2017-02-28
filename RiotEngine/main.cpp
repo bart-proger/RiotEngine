@@ -1,11 +1,14 @@
 #include <iostream>
+#include "RiotEngineApp.h"
 
-int main()
+int SDL_main(int argc, char** argv)
 {
-	std::cout << "*** RiotEngine *** used SDL2 + OpenGL\n";
+	RiotEngineApp app;
 
+	if (app.init("RiotEngine demo", 640, 480))
+	{
+		app.run();
+	}
 
-
-	std::cin.get();
 	return 0;
 }
