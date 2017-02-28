@@ -22,8 +22,6 @@ public:
 
 	Graphics & graphics() { return graphics_; }
 	//Network & network();
-	int width() const { return width_; }
-	int height() const { return height_; }
 
 protected:
 	virtual bool onInit() { return true; }
@@ -37,8 +35,6 @@ protected:
 	virtual void onKeyDown(SDL_Keycode) {}
 
 private:
-	int width_;
-	int height_;
 	SDL_Window *window_;
 	Graphics graphics_;
 	//Network network_;

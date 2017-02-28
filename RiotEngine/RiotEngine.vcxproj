@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="_Game_main.cpp" />
     <ClCompile Include="RiotEngineApp.cpp" />
     <ClCompile Include="_Game.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RiotEngineApp.h" />
+    <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="_Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

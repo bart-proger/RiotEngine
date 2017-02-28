@@ -1,10 +1,10 @@
 #include "Graphics.h"
-// #include "Texture.h"
-#include <iostream>
+
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 
+#include "Graphics/Texture.h"
 
 Graphics::Graphics()
 {
@@ -39,7 +39,7 @@ bool Graphics::init(SDL_Window *window, int width, int height)
 	int imgFlags = IMG_INIT_PNG;
 	if(!(IMG_Init(imgFlags) & imgFlags))
 	{
-		std::cerr << "[error] SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << std::endl;
+		SDL_Log("[error] SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 		return false;
 	}
 
@@ -79,17 +79,29 @@ bool Graphics::initOpenGL()
 	glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 	glClearDepth(1.f);
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	GLenum error = GL_NO_ERROR;
 	error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
-		SDL_Log("Error initializing OpenGL! %s\n", gluErrorString(error));
+		SDL_Log("[error] Error initializing OpenGL! %s\n", gluErrorString(error));
 		return false;
 	}
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	return true;
+}
+
+bool Graphics::errorOpenGL()
+{
+	GLenum error = GL_NO_ERROR;
+	error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		SDL_Log("[error] OpenGL Error: %s\n", gluErrorString(error));
+		return true;
+	}
+	return false;
 }
 
 void Graphics::begin2D()
@@ -121,6 +133,17 @@ void Graphics::end2D()
 	glEnable(GL_DEPTH_TEST);
 
 	//	glPopAttrib();
+}
+
+void Graphics::drawTexture(const Texture &t, int x, int y)
+{
+	glBindTexture(GL_TEXTURE_2D, t.id_);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 0); glVertex2i(x, y);
+		glTexCoord2f(0, 1); glVertex2i(x, y + t.height_);
+		glTexCoord2f(1, 1); glVertex2i(x + t.width_, y + t.height_);
+		glTexCoord2f(1, 0); glVertex2i(x + t.width_, y);
+	glEnd();
 }
 
 void Graphics::drawRect(int x, int y, int w, int h)

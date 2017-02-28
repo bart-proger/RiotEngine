@@ -74,21 +74,21 @@ void RiotEngineApp::run()
 					case SDL_MOUSEBUTTONDOWN:
 						onPress({ e.button.x, e.button.y });
 						break;
-					case SDL_FINGERDOWN:
-						onPress({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
-						break;
-					case SDL_MOUSEBUTTONUP:
-						onRelease({ e.button.x, e.button.y });
-						break;
-					case SDL_FINGERUP:
-						onRelease({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
-						break;
-					case SDL_MOUSEMOTION:
-						onMove({ e.motion.x, e.motion.y });
-						break;
-					case SDL_FINGERMOTION:
-						onMove({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
-						break;
+// 					case SDL_FINGERDOWN:
+// 						onPress({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
+// 						break;
+// 					case SDL_MOUSEBUTTONUP:
+// 						onRelease({ e.button.x, e.button.y });
+// 						break;
+// 					case SDL_FINGERUP:
+// 						onRelease({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
+// 						break;
+// 					case SDL_MOUSEMOTION:
+// 						onMove({ e.motion.x, e.motion.y });
+// 						break;
+// 					case SDL_FINGERMOTION:
+// 						onMove({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
+// 						break;
 				}
 			}
 		}

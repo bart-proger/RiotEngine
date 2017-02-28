@@ -6,10 +6,11 @@ class Resource
 {
 public:
 	Resource() : loaded_(false) {}
-	virtual ~Resource() {}
+	virtual ~Resource() { free(); }
 
-	virtual bool loadFromFile(string fileName) { return true; }
+	virtual bool loadFromFile(string fileName, void *params) { return true; }
 	virtual void free() {}
+
 protected:
 	bool loaded_;
 };
