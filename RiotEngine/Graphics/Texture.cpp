@@ -60,15 +60,15 @@ bool Texture::loadFromFile(string fileName, void *params /*= nullptr*/)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-// 
-// 	GLenum error = GL_NO_ERROR;
-// 	error = glGetError();
-// 	if (error != GL_NO_ERROR)
-// 	{
-// 		SDL_Log("[error] OpenGL Error: %s\n", gluErrorString(error));
-// 		SDL_FreeSurface(surface);
-// 		return false;
-// 	}
+ 
+ 	GLenum error = GL_NO_ERROR;
+ 	error = glGetError();
+ 	if (error != GL_NO_ERROR)
+ 	{
+ 		SDL_Log("[error] OpenGL Error: %s\n", gluErrorString(error));
+ 		SDL_FreeSurface(surface);
+ 		return false;
+ 	}
 
 	id_ = id;
 	width_ = surface->w;

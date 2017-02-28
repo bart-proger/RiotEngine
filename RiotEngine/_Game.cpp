@@ -3,7 +3,6 @@
 
 bool _Game::onInit()
 {
-	glEnable(GL_TEXTURE);
 	glEnable(GL_TEXTURE_2D);
 
 	if (!(tex.loadFromFile("data/ui.tga")))
