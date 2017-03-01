@@ -10,20 +10,24 @@ using std::string;
 	#pragma comment(lib, "glu32.lib")
 #endif
 
-class Texture;
+#include "Graphics/Texture.h"
 
 class Graphics
 {
 public:
-	Graphics();
-	~Graphics();
+	Graphics(): glContext_(nullptr), width_(0), height_(0) {}
+
 	bool init(SDL_Window *window, int width, int height);
 	void free();
 
 	void begin2D();
 	void end2D();
 
-	void drawTexture(const Texture &, int x, int y);
+// 	bool loadTexture(Texture &, string fileName);
+// 	void freeTexture(Texture &);
+	void drawTexture(const Texture &, int x, int y, int w = -1, int h = -1);
+	Texture & defaultTexture();
+
 	void drawRect(int x, int y, int w, int h);
 
 	int width() const { return width_; }
@@ -35,5 +39,7 @@ private:
 
 	SDL_GLContext glContext_;
 	int width_, height_;
+
+	Texture defaultTexture_;
 };
 

@@ -6,16 +6,6 @@
 
 #include "Graphics/Texture.h"
 
-Graphics::Graphics()
-{
-}
-
-Graphics::~Graphics()
-{
-//	TTF_Quit();
-	IMG_Quit();
-}
-
 bool Graphics::init(SDL_Window *window, int width, int height)
 {
 	glContext_ = SDL_GL_CreateContext(window); 
@@ -52,9 +42,12 @@ bool Graphics::init(SDL_Window *window, int width, int height)
 // 		std::cerr << "[error] SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << std::endl;
 // 		return false;
 // 	}
-// 
-// 	//Initialize renderer color        r     g     b    alpha
-// 	SDL_SetRenderDrawColor(renderer_, 0xFF, 0xFF, 0xFF, 0xFF);
+
+	GLbyte dtp[] =	{	0x00,  0xff, 0x00, 0xff, 
+						0xff,  0x00, 0xff, 0x00,
+						0x00,  0xff, 0x00, 0xff,
+						0xff,  0x00, 0xff, 0x00  };
+	defaultTexture_.createFromPixels(4, 4, 1, GL_LUMINANCE, dtp, GL_NEAREST);
 
 	return true;
 }
@@ -66,6 +59,9 @@ void Graphics::free()
 		SDL_GL_DeleteContext(glContext_);
 		glContext_ = nullptr;
 	}
+
+	//	TTF_Quit();
+	IMG_Quit();
 }
 
 bool Graphics::initOpenGL()
@@ -135,15 +131,25 @@ void Graphics::end2D()
 	//	glPopAttrib();
 }
 
-void Graphics::drawTexture(const Texture &t, int x, int y)
+void Graphics::drawTexture(const Texture &t, int x, int y, int w /*= -1*/, int h /*= -1*/)
 {
+	if (w < 0)
+		w = t.width_;
+	if (h < 0)
+		h = t.height_;
+
 	glBindTexture(GL_TEXTURE_2D, t.id_);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0, 0); glVertex2i(x, y);
-		glTexCoord2f(0, 1); glVertex2i(x, y + t.height_);
-		glTexCoord2f(1, 1); glVertex2i(x + t.width_, y + t.height_);
-		glTexCoord2f(1, 0); glVertex2i(x + t.width_, y);
+		glTexCoord2f(0, 1); glVertex2i(x, y + h);
+		glTexCoord2f(1, 1); glVertex2i(x + w, y + h);
+		glTexCoord2f(1, 0); glVertex2i(x + w, y);
 	glEnd();
+}
+
+Texture & Graphics::defaultTexture()
+{
+	return defaultTexture_;
 }
 
 void Graphics::drawRect(int x, int y, int w, int h)

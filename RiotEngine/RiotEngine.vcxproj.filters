@@ -27,9 +27,6 @@
     <ClCompile Include="_Game_main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>

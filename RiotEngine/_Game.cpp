@@ -19,8 +19,11 @@ void _Game::onDraw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	Graphics &g = graphics();
+
 	//glColor3f(0, 1, 0);
-	graphics().begin2D();
-		graphics().drawTexture(tex, 40, 100);
-	graphics().end2D();
+	g.begin2D();
+		g.drawTexture(tex, 40, 100);
+		g.drawTexture(g.defaultTexture(), 0, 0, 200, 200);
+	g.end2D();
 }

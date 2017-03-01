@@ -11,11 +11,12 @@ public:
 	Texture(): id_(0), width_(0), height_(0) {}
 
 	bool loadFromFile(string fileName, void *params = nullptr) override;
-	void free();
+	void free() override;
+
+	bool createFromPixels(GLsizei width, GLsizei height, GLint bpp, GLenum format, GLvoid *pixels, GLint filter = GL_LINEAR, GLint wrap = GL_CLAMP_TO_EDGE);
 
 private:
 	GLuint id_;
-	GLsizei width_;
-	GLsizei height_;
+	GLsizei width_,  height_;
 };
 
