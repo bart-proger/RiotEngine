@@ -1,6 +1,8 @@
 #pragma once
 #include "RiotEngineApp.h"
+
 #include "Graphics/Texture.h"
+#include "Graphics/Sprite.h"
 
 class _Game : public RiotEngineApp
 {
@@ -12,5 +14,6 @@ private:
 	void onDraw() override;
 
 	Texture tex;
+	Sprite* sprite;
 };
 

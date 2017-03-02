@@ -147,9 +147,15 @@ void Graphics::drawTexture(const Texture &t, int x, int y, int w /*= -1*/, int h
 	glEnd();
 }
 
-Texture & Graphics::defaultTexture()
+void Graphics::drawSprite(const Sprite &s, int x, int y)
 {
-	return defaultTexture_;
+	//glBindTexture(GL_TEXTURE_2D, s.texture_.id_);
+	glBegin(GL_QUADS);
+		glTexCoord2f(s.texCoords_.left, 0); glVertex2i(x, y);
+		glTexCoord2f(0, 1); glVertex2i(x, y + s.height_);
+		glTexCoord2f(1, 1); glVertex2i(x + s.width_, y + s.height_);
+		glTexCoord2f(1, 0); glVertex2i(x + s.width_, y);
+	glEnd();
 }
 
 void Graphics::drawRect(int x, int y, int w, int h)
@@ -163,41 +169,6 @@ void Graphics::drawRect(int x, int y, int w, int h)
 }
 
 /*
-bool Graphics::loadTexture(string fileName, SDL_Color *transparent)
-{
-	texture_.Free();
-
-	bool result = true;
-	SDL_Surface *surf = IMG_Load(fileName.c_str());
-
-	if (!surf)
-	{
-		std::cerr << "[error] Unable to load image '" << fileName.c_str() << "'! IMG Error: " << IMG_GetError() << std::endl;
-		result = false;
-	}
-	else
-	{
-		if (transparent)
-			SDL_SetColorKey(surf, SDL_TRUE, SDL_MapRGB(surf->format, transparent->r, transparent->g, transparent->b));
-
-		texture_.sdlTexture_ = SDL_CreateTextureFromSurface(renderer_, surf);
-		if (!texture_.sdlTexture_)
-		{
-			std::cerr << "[error] Unable to create texture from image '" << fileName.c_str() << "'! SDL Error: " << SDL_GetError() << std::endl;
-			result = false;
-		}
-		else
-		{
-			//Get image dimensions
-			texture_.width_ = surf->w;
-			texture_.height_ = surf->h;
-		}
-		SDL_FreeSurface(surf);
-	}
-
-	return result;
-}
-
 void Graphics::addSprite(string name, int x, int y, int w, int h)
 {
 	Sprite sprite = { x, y, w, h };
@@ -258,12 +229,5 @@ void Graphics::drawText(const Font &font, SDL_Color color, string text, int x, i
 		}
 		SDL_FreeSurface(surf);
 	}
-}
-
-void Graphics::drawRect(SDL_Rect rect, SDL_Color color)
-{
-	SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
-	SDL_RenderDrawRect(renderer_, &rect);
-	SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
 }
 */

@@ -8,7 +8,7 @@ public:
 	Resource() : loaded_(false) {}
 	virtual ~Resource() { free(); }
 
-	virtual bool loadFromFile(string fileName, void *params) { return true; }
+	virtual bool loadFromFile(string fileName, void *params) { return false; }
 	virtual void free() {}
 
 protected:

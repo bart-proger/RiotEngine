@@ -11,6 +11,7 @@ using std::string;
 #endif
 
 #include "Graphics/Texture.h"
+#include "Graphics/Sprite.h"
 
 class Graphics
 {
@@ -26,7 +27,9 @@ public:
 // 	bool loadTexture(Texture &, string fileName);
 // 	void freeTexture(Texture &);
 	void drawTexture(const Texture &, int x, int y, int w = -1, int h = -1);
-	Texture & defaultTexture();
+	Texture & defaultTexture() { return defaultTexture_; }
+
+	void drawSprite(const Sprite &, int x, int y);
 
 	void drawRect(int x, int y, int w, int h);
 
