@@ -8,7 +8,7 @@ bool _Game::onInit()
 	if (!(tex.loadFromFile("data/ui.tga")))
 		return false;
 
-	sprite = new Sprite(tex, 0, 0, 200, 200);
+	sprite = new Sprite(tex, 0, 272, 240, 240);
 
 	return true;
 }
@@ -16,6 +16,16 @@ bool _Game::onInit()
 void _Game::onFree()
 {
 	delete sprite;
+}
+
+Uint32 ticks = SDL_GetTicks();
+
+void _Game::onUpdate()
+{
+	static float dt = (SDL_GetTicks() - ticks) / 1000.f;
+	ticks = SDL_GetTicks();
+
+	sprite->rotate(10 * dt);
 }
 
 void _Game::onDraw()
@@ -28,6 +38,6 @@ void _Game::onDraw()
 	g.begin2D();
 		g.drawTexture(tex, 40, 100);
 		g.drawTexture(g.defaultTexture(), 0, 0, 200, 200);
-		g.drawSprite(sprite, 200, 50);
+		g.drawSprite(*sprite, 200, 50);
 	g.end2D();
 }

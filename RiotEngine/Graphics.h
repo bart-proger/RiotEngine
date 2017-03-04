@@ -23,18 +23,18 @@ public:
 
 	void begin2D();
 	void end2D();
+	void bindTexture(Texture &);
 
 // 	bool loadTexture(Texture &, string fileName);
 // 	void freeTexture(Texture &);
-	void drawTexture(const Texture &, int x, int y, int w = -1, int h = -1);
-	Texture & defaultTexture() { return defaultTexture_; }
-
-	void drawSprite(const Sprite &, int x, int y);
+	void drawTexture(Texture &, int x, int y, int w = 0, int h = 0);
+	void drawSprite(Sprite &, int x, int y);
 
 	void drawRect(int x, int y, int w, int h);
 
 	int width() const { return width_; }
 	int height() const { return height_; }
+	Texture & defaultTexture() { return defaultTexture_; }
 
 private:
 	bool initOpenGL();
@@ -44,5 +44,7 @@ private:
 	int width_, height_;
 
 	Texture defaultTexture_;
+
+	Texture *currentTexture_;
 };
 

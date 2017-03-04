@@ -33,6 +33,9 @@
     <ClCompile Include="Graphics\Sprite.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Point2.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RiotEngineApp.h">
@@ -51,6 +54,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Sprite.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Point2.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

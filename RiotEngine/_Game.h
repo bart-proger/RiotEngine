@@ -11,6 +11,7 @@ public:
 private:
 	bool onInit() override;
 	void onFree() override;
+	void onUpdate() override;
 	void onDraw() override;
 
 	Texture tex;

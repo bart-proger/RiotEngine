@@ -131,31 +131,54 @@ void Graphics::end2D()
 	//	glPopAttrib();
 }
 
-void Graphics::drawTexture(const Texture &t, int x, int y, int w /*= -1*/, int h /*= -1*/)
+void Graphics::bindTexture(Texture &t)
 {
-	if (w < 0)
-		w = t.width_;
-	if (h < 0)
-		h = t.height_;
-
-	glBindTexture(GL_TEXTURE_2D, t.id_);
-	glBegin(GL_QUADS);
-		glTexCoord2f(0, 0); glVertex2i(x, y);
-		glTexCoord2f(0, 1); glVertex2i(x, y + h);
-		glTexCoord2f(1, 1); glVertex2i(x + w, y + h);
-		glTexCoord2f(1, 0); glVertex2i(x + w, y);
-	glEnd();
+	if (currentTexture_ != &t)
+	{
+		glBindTexture(GL_TEXTURE_2D, t.id_);
+		currentTexture_ = &t;
+	}
 }
 
-void Graphics::drawSprite(const Sprite &s, int x, int y)
+void Graphics::drawTexture(Texture &t, int x, int y, int w /*= 0*/, int h /*= 0*/)
 {
-	//glBindTexture(GL_TEXTURE_2D, s.texture_.id_);
+	if (w <= 0)
+		w = t.width_;
+	if (h <= 0)
+		h = t.height_;
+
+	glPushMatrix();
+	glTranslated(x, y, 0);
+	glScaled(w, h, 0);
+
+	bindTexture(t);
 	glBegin(GL_QUADS);
-		glTexCoord2f(s.texCoords_.left, 0); glVertex2i(x, y);
-		glTexCoord2f(0, 1); glVertex2i(x, y + s.height_);
-		glTexCoord2f(1, 1); glVertex2i(x + s.width_, y + s.height_);
-		glTexCoord2f(1, 0); glVertex2i(x + s.width_, y);
+		glTexCoord2f(0, 0); glVertex2i(0, 0);
+		glTexCoord2f(0, 1); glVertex2i(0, 1);
+		glTexCoord2f(1, 1); glVertex2i(1, 1);
+		glTexCoord2f(1, 0); glVertex2i(1, 0);
 	glEnd();
+
+	glPopMatrix();
+}
+
+void Graphics::drawSprite(Sprite &s, int x, int y)
+{
+	glPushMatrix();
+	glTranslated(x, y, 0);
+	glTranslated(s.width_ / 2.f, s.height_ / 2.f, 0);
+	glRotatef(s.angle_, 0, 0, 1);
+	glScaled(s.width_, s.height_, 0);
+
+	bindTexture(s.texture_);
+	glBegin(GL_QUADS);
+	glTexCoord2f(s.texCoords_.left, s.texCoords_.bottom);	glVertex2f(-0.5, -0.5);
+	glTexCoord2f(s.texCoords_.left, s.texCoords_.top);		glVertex2f(-0.5, 0.5);
+	glTexCoord2f(s.texCoords_.right, s.texCoords_.top);		glVertex2f(0.5, 0.5);
+	glTexCoord2f(s.texCoords_.right, s.texCoords_.bottom);	glVertex2f(0.5, -0.5);
+	glEnd();
+
+	glPopMatrix();
 }
 
 void Graphics::drawRect(int x, int y, int w, int h)

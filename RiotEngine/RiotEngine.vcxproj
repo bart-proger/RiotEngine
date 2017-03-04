@@ -152,6 +152,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="Math\Point2.cpp" />
     <ClCompile Include="_Game_main.cpp" />
     <ClCompile Include="RiotEngineApp.cpp" />
     <ClCompile Include="_Game.cpp" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Graphics\Sprite.h" />
+    <ClInclude Include="Math\Point2.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RiotEngineApp.h" />
     <ClInclude Include="Graphics\Texture.h" />
