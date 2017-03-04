@@ -32,6 +32,7 @@ private:
 
 	int width_, height_;
 	Point2 offset_;
+	Point2 pivot_; //TODO: ось вращения и все что с ней связано
 
 	bool flippedH_, flippedV_;
 	float angle_;
