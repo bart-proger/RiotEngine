@@ -63,6 +63,13 @@ Point2 Point2::normal() const
 	return (*this);
 }
 
+#define PI 3.14159265
+
+float Point2::angle() const
+{
+	return atan2(y, x) * 180 / PI;
+}
+
 const Point2& operator+(const Point2& p)
 {
 	return p;

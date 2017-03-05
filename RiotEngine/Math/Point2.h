@@ -19,6 +19,7 @@ public:
 	float length() const;
 	float distanceTo(const Point2& p) const;
 	Point2 normal() const;
+	float angle() const;
 
 	friend const Point2& operator+(const Point2& p);
 	friend const Point2 operator-(const Point2& p);

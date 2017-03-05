@@ -2,26 +2,47 @@
 #include "../Graphics.h"
 #include "Texture.h"
 
+
+Sprite::Sprite():
+	texture_(nullptr),
+	offset_(0),
+	width_(0),
+	height_(0),
+	angle_(0),
+	pivot_(0)
+{
+	texCoords_ = { 0, 0, 1, 1 };
+}
+
 Sprite::Sprite(Texture &t):
-	texture_(t),
+	texture_(&t),
 	offset_(0),
 	width_(t.width()),
 	height_(t.height()),
-	angle_(0)
+	angle_(0),
+	pivot_(width_ / 2.f, height_ / 2.f)
 {
 	texCoords_ = { 0, 0, 1, 1 };
 }
 
 Sprite::Sprite(Texture &t, int offsetX, int offsetY, int width, int height) :
-	texture_(t),
+	texture_(&t),
 	offset_(offsetX, offsetY),
 	width_(width),
 	height_(height),
-	angle_(0)
+	angle_(0),
+	pivot_(width_ / 2.f, height_ / 2.f)
 {
 	float kx = 1.f / t.width();
 	float ky = 1.f / t.height();
 	texCoords_ = { offsetX * kx, offsetY * ky, (offsetX + width) * kx, (offsetY + height) * ky};
+}
+
+void Sprite::setTexture(Texture &t)
+{
+	width_ = t.width();
+	height_ = t.height();
+	pivot_ = Point2{ width_ / 2.f, height_ / 2.f };
 }
 
 void Sprite::flip(FlipDir dir)

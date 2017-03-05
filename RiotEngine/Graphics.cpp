@@ -166,16 +166,20 @@ void Graphics::drawSprite(Sprite &s, int x, int y)
 {
 	glPushMatrix();
 	glTranslated(x, y, 0);
-	glTranslated(s.width_ / 2.f, s.height_ / 2.f, 0);
+	glTranslated(s.pivot_.x, s.pivot_.y, 0);
 	glRotatef(s.angle_, 0, 0, 1);
+	glTranslated(-s.pivot_.x, -s.pivot_.y, 0);
 	glScaled(s.width_, s.height_, 0);
 
-	bindTexture(s.texture_);
+	if (s.texture_)
+		bindTexture(*s.texture_);
+	else
+		bindTexture(defaultTexture_);
 	glBegin(GL_QUADS);
-	glTexCoord2f(s.texCoords_.left, s.texCoords_.bottom);	glVertex2f(-0.5, -0.5);
-	glTexCoord2f(s.texCoords_.left, s.texCoords_.top);		glVertex2f(-0.5, 0.5);
-	glTexCoord2f(s.texCoords_.right, s.texCoords_.top);		glVertex2f(0.5, 0.5);
-	glTexCoord2f(s.texCoords_.right, s.texCoords_.bottom);	glVertex2f(0.5, -0.5);
+	glTexCoord2f(s.texCoords_.left, s.texCoords_.bottom);	glVertex2f(0, 0);
+	glTexCoord2f(s.texCoords_.left, s.texCoords_.top);		glVertex2f(0, 1);
+	glTexCoord2f(s.texCoords_.right, s.texCoords_.top);		glVertex2f(1, 1);
+	glTexCoord2f(s.texCoords_.right, s.texCoords_.bottom);	glVertex2f(1, 0);
 	glEnd();
 
 	glPopMatrix();
