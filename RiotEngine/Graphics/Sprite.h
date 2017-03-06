@@ -16,10 +16,10 @@ public:
 	};
 
 	Sprite();
-	Sprite(Texture &);
-	Sprite(Texture &, int offsetX, int offsetY, int width, int height);
 
-	void setTexture(Texture &);
+	void create(Texture &);
+	void create(Texture &, int offsetX, int offsetY, int width, int height);
+
 	void flip(FlipDir dir);
 	bool flipped(FlipDir dir);
 	void rotate(float angle);
@@ -34,11 +34,11 @@ private:
 	Texture *texture_;
 	TexCoords texCoords_;
 
-	int width_, height_;
 	Point2 offset_;
-	Point2 pivot_; 
-
+	int width_, height_;
+	
 	bool flippedH_, flippedV_;
 	float angle_;
+	Point2 pivot_;
 };
 
