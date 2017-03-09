@@ -12,7 +12,7 @@ public:
 
 	struct TexCoords
 	{
-		float left, bottom, right, top;
+		float u1, v1, u2, v2;
 	};
 
 	Sprite();
@@ -34,7 +34,6 @@ private:
 	Texture *texture_;
 	TexCoords texCoords_;
 
-	Point2 offset_;
 	int width_, height_;
 	
 	bool flippedH_, flippedV_;

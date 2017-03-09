@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Graphics\AnimatedSprite.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Math\Point2.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Graphics\AnimatedSprite.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Math\Point2.h" />
     <ClInclude Include="Resource.h" />

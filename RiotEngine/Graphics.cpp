@@ -176,10 +176,10 @@ void Graphics::drawSprite(Sprite &s, int x, int y)
 	else
 		bindTexture(defaultTexture_);
 	glBegin(GL_QUADS);
-	glTexCoord2f(s.texCoords_.left, s.texCoords_.bottom);	glVertex2f(0, 0);
-	glTexCoord2f(s.texCoords_.left, s.texCoords_.top);		glVertex2f(0, 1);
-	glTexCoord2f(s.texCoords_.right, s.texCoords_.top);		glVertex2f(1, 1);
-	glTexCoord2f(s.texCoords_.right, s.texCoords_.bottom);	glVertex2f(1, 0);
+	glTexCoord2f(s.texCoords_.u1, s.texCoords_.v1);	glVertex2f(0, 0);
+	glTexCoord2f(s.texCoords_.u1, s.texCoords_.v2);		glVertex2f(0, 1);
+	glTexCoord2f(s.texCoords_.u2, s.texCoords_.v2);		glVertex2f(1, 1);
+	glTexCoord2f(s.texCoords_.u2, s.texCoords_.v1);	glVertex2f(1, 0);
 	glEnd();
 
 	glPopMatrix();
