@@ -4,7 +4,8 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 
-#include "Graphics/Texture.h"
+#include "Graphics/Sprite.h"
+#include "Graphics/AnimatedSprite.h"
 
 bool Graphics::init(SDL_Window *window, int width, int height)
 {
@@ -180,6 +181,32 @@ void Graphics::drawSprite(Sprite &s, int x, int y)
 	glTexCoord2f(s.texCoords_.u1, s.texCoords_.v2);		glVertex2f(0, 1);
 	glTexCoord2f(s.texCoords_.u2, s.texCoords_.v2);		glVertex2f(1, 1);
 	glTexCoord2f(s.texCoords_.u2, s.texCoords_.v1);	glVertex2f(1, 0);
+	glEnd();
+
+	glPopMatrix();
+}
+
+void Graphics::drawAnimatedSprite(AnimatedSprite &s, int x, int y)
+{
+	glPushMatrix();
+	glTranslated(x, y, 0);
+	glTranslated(s.pivot_.x, s.pivot_.y, 0);
+	glRotatef(s.angle_, 0, 0, 1);
+	glTranslated(-s.pivot_.x, -s.pivot_.y, 0);
+	glScaled(s.frameWidth_, s.frameHeight_, 0);
+
+	if (s.texture_)
+		bindTexture(*s.texture_);
+	else
+		bindTexture(defaultTexture_);
+
+	Sprite::TexCoords tc = s.frames_[s.currentFrame_];
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(tc.u1, tc.v1);	glVertex2f(0, 0);
+	glTexCoord2f(tc.u1, tc.v2);	glVertex2f(0, 1);
+	glTexCoord2f(tc.u2, tc.v2);	glVertex2f(1, 1);
+	glTexCoord2f(tc.u2, tc.v1);	glVertex2f(1, 0);
 	glEnd();
 
 	glPopMatrix();

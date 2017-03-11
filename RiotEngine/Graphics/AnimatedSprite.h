@@ -2,22 +2,29 @@
 #include "Sprite.h"
 #include <vector>
 
+class Graphics;
+
 class AnimatedSprite : public Sprite
 {
+friend class Graphics;
 public:
-	AnimatedSprite() : currentFrame_(0), interval_(0), looped_(false) {}
+	AnimatedSprite();
 
-	void create(Texture &);
-	void create(Texture &, int offsetX, int offsetY, int frameWidth, int frameHeight, int framesInWidth, int framesInHeight); //TODO: 
+	void create(Texture &, int framesInWidth, int framesInHeight = 1);
+	void create(Texture &, int offsetX, int offsetY, int width, int height, int framesInWidth, int framesInHeight = 1); 
 
-	void setFrame(int n);
-	int frame() const { return currentFrame_; }
-	void Anmate(float dt);
+	void animate(float dt);
+
+	void setFrame(float n) { if (n < 0 || n >= frames_.size()) return; currentFrame_ = n; }
+	float frame() const { return currentFrame_; }
+	void setInterval(float seconds) { if (interval_ <= 0) return; interval_ = seconds; }
+	float interval() const { return interval_; }
 
 private:
 	std::vector<TexCoords> frames_;
 	float currentFrame_;
 	float interval_;	// в секундах
 	bool looped_;
+	float frameWidth_, frameHeight_;
 };
 

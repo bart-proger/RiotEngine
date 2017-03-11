@@ -31,9 +31,7 @@ void Sprite::create(Texture &t, int offsetX, int offsetY, int width, int height)
 	height_ = height;
 	pivot_ = width_ / 2.f, height_ / 2.f;
 
-	float kx = 1.f / t.width();
-	float ky = 1.f / t.height();
-	texCoords_ = {offsetX * kx, offsetY * ky, (offsetX + width) * kx, (offsetY + height) * ky};
+	texCoords_ = {1.f * offsetX / t.width(), 1.f * offsetY / t.height(), 1.f * (offsetX + width) / t.width(), 1.f * (offsetY + height) / t.height() };
 }
 
 void Sprite::flip(FlipDir dir)

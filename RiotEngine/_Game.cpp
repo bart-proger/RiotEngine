@@ -32,6 +32,11 @@ bool _Game::onInit()
 	
 	//sprite->setPivot(Point2{50, 50});
 
+	sonic.loadFromFile("data/sonic.png");
+	sonic_walk.create(sonic, 204, 0, 1024-204, 110, 10-2);
+	sonic_run.create(sonic, 0, 116, 410, 110, 4);
+	sonic_roll.create(sonic, 102, 240, 922-102, 82, 9-1);
+
 	return true;
 }
 
@@ -56,6 +61,10 @@ void _Game::onUpdate()
 
 	t34_tower.setRotation((mouse - Point2{ 20.f + t34_tower.width() / 2.f, 20.f + t34_base.height() / 2.f }).angle());
 	t44_tower.setRotation((mouse - Point2{ 20.f + t44_tower.width() / 2.f, 300.f + t44_base.height() / 2.f }).angle());
+
+	sonic_walk.animate(dt);
+	sonic_run.animate(dt);
+	sonic_roll.animate(dt);
 }
 
 void _Game::onDraw()
@@ -75,5 +84,9 @@ void _Game::onDraw()
 
 		g.drawSprite(t44_base, 20, 300);
 		g.drawSprite(t44_tower, 20, 300 + (t44_base.height() - t44_tower.height()) / 2);
+
+		g.drawAnimatedSprite(sonic_walk, 300, 5);
+		g.drawAnimatedSprite(sonic_run, 300, 150);
+		g.drawAnimatedSprite(sonic_roll, 300, 300);
 	g.end2D();
 }
