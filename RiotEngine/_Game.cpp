@@ -53,13 +53,6 @@ void _Game::onUpdate(float dt)
 {
 	sprite.rotate(45 * dt);
 
-	int mx, my;
-	SDL_GetMouseState(&mx, &my);
-	Point2 mouse{ mx * 1.f, my * 1.f };
-
-	t34_tower.setRotation((mouse - Point2{ 40.f + t34_tower.width() / 2.f, 20.f + t34_base.height() / 2.f }).angle());
-	t44_tower.setRotation((mouse - Point2{ -20.f + t44_tower.width() / 2.f, 300.f + t44_base.height() / 2.f }).angle());
-
 	sonic_walk.animate(dt);
 	sonic_run.animate(dt);
 	sonic_roll.animate(dt);
@@ -83,7 +76,7 @@ void _Game::onDraw(Graphics &g)
 		g.drawSprite(t34_tower, 40, 20 + (t34_base.height() - t34_tower.height()) / 2);
 
 		g.drawSprite(t44_base, 20, 300);
-		g.drawSprite(t44_tower, -20, 300 + (t44_base.height() - t44_tower.height()) / 2);
+		g.drawSprite(t44_tower, -15, 300 + (t44_base.height() - t44_tower.height()) / 2);
 
 		g.drawAnimatedSprite(sonic_walk, 300, 5);
 		g.drawAnimatedSprite(sonic_run, 300, 150);
@@ -97,4 +90,10 @@ void _Game::onPress(Point2 p)
 {
 	exploPos = p - Point2{explosion.frameWidth() / 2.f, explosion.frameHeight() / 2.f};
 	explosion.setFrame(0);
+}
+
+void _Game::onMouseMove(Point2 p, Point2 dp)
+{
+	t34_tower.setRotation((p - Point2{ 40.f + t34_tower.width() / 2.f, 20.f + t34_base.height() / 2.f }).angle());
+	t44_tower.setRotation((p - Point2{ -15.f + t44_tower.width() / 2.f, 300.f + t44_base.height() / 2.f }).angle());
 }

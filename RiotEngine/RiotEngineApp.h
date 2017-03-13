@@ -32,7 +32,7 @@ protected:
 //	virtual void onKeyEvent() {}
 	virtual void onPress(Point2 ) {}
 //	virtual void onRelease(SDL_Point) {}
-//	virtual void onMove(SDL_Point) {}
+	virtual void onMouseMove(Point2 p, Point2 dp) {}
 //	virtual void onKeyDown(SDL_Keycode) {}
 
 private:

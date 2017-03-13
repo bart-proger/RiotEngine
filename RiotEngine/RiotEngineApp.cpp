@@ -87,9 +87,9 @@ void RiotEngineApp::run()
 // 					case SDL_FINGERUP:
 // 						onRelease({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
 // 						break;
-// 					case SDL_MOUSEMOTION:
-// 						onMove({ e.motion.x, e.motion.y });
-// 						break;
+ 					case SDL_MOUSEMOTION:
+						onMouseMove({ (float)e.motion.x, (float)e.motion.y }, /*dp*/{0});	//TODO: dp
+ 						break;
 // 					case SDL_FINGERMOTION:
 // 						onMove({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
 // 						break;
