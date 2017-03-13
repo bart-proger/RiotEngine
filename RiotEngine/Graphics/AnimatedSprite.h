@@ -19,6 +19,7 @@ public:
 	float frame() const { return currentFrame_; }
 	void setInterval(float seconds) { if (interval_ <= 0) return; interval_ = seconds; }
 	float interval() const { return interval_; }
+	void setLooped(bool value) {	looped_ = value; }
 
 private:
 	std::vector<TexCoords> frames_;

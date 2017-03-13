@@ -16,26 +16,29 @@ public:
 	RiotEngineApp();
 	virtual ~RiotEngineApp();
 	bool init(string title, int width, int height);
-	void free();
 	void run();
 	void quit();
 
 	Graphics & graphics() { return graphics_; }
 	//Network & network();
+	float frameTime() const { return frameTime_; }
 
 protected:
 	virtual bool onInit() { return true; }
 	virtual void onFree() {}
-	virtual void onUpdate() {}
-	virtual void onDraw() {}
+	virtual void onUpdate(float dt) {}
+	virtual void onDraw(Graphics &) {}
 //	virtual void onKeyEvent() {}
-	virtual void onPress(SDL_Point) {}
-	virtual void onRelease(SDL_Point) {}
-	virtual void onMove(SDL_Point) {}
-	virtual void onKeyDown(SDL_Keycode) {}
+	virtual void onPress(Point2 ) {}
+//	virtual void onRelease(SDL_Point) {}
+//	virtual void onMove(SDL_Point) {}
+//	virtual void onKeyDown(SDL_Keycode) {}
 
 private:
+	void free();
+
 	SDL_Window *window_;
 	Graphics graphics_;
 	//Network network_;
+	float frameTime_;
 };

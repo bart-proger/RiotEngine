@@ -37,6 +37,10 @@ bool _Game::onInit()
 	sonic_run.create(sonic, 0, 116, 410, 110, 4);
 	sonic_roll.create(sonic, 102, 240, 922-102, 82, 9-1);
 
+	explo.loadFromFile("data/explosion.png");
+	explosion.create(explo, 4, 4);
+	explosion.setLooped(false);
+
 	return true;
 }
 
@@ -44,34 +48,25 @@ void _Game::onFree()
 {
 }
 
-Uint32 ticks, start = SDL_GetTicks();
-float dt = 0;
-
-void _Game::onUpdate()
+void _Game::onUpdate(float dt)
 {
-	ticks = SDL_GetTicks();
-	dt = (ticks - start) / 1000.f;
-	start = ticks;
-
 	sprite.rotate(45 * dt);
 
 	int mx, my;
 	SDL_GetMouseState(&mx, &my);
 	Point2 mouse{ mx * 1.f, my * 1.f };
 
-	t34_tower.setRotation((mouse - Point2{ 20.f + t34_tower.width() / 2.f, 20.f + t34_base.height() / 2.f }).angle());
-	t44_tower.setRotation((mouse - Point2{ 20.f + t44_tower.width() / 2.f, 300.f + t44_base.height() / 2.f }).angle());
+	t34_tower.setRotation((mouse - Point2{ 40.f + t34_tower.width() / 2.f, 20.f + t34_base.height() / 2.f }).angle());
+	t44_tower.setRotation((mouse - Point2{ -20.f + t44_tower.width() / 2.f, 300.f + t44_base.height() / 2.f }).angle());
 
 	sonic_walk.animate(dt);
 	sonic_run.animate(dt);
 	sonic_roll.animate(dt);
 }
 
-void _Game::onDraw()
+void _Game::onDraw(Graphics &g)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	Graphics &g = graphics();
 
 //	glColor3f(0, 1, 0);
 	g.begin2D();
@@ -80,13 +75,18 @@ void _Game::onDraw()
 		//g.drawSprite(*sprite, 200, 50);
 
 		g.drawSprite(t34_base, 20, 20);
-		g.drawSprite(t34_tower, 20, 20 + (t34_base.height() - t34_tower.height()) / 2);
+		g.drawSprite(t34_tower, 40, 20 + (t34_base.height() - t34_tower.height()) / 2);
 
 		g.drawSprite(t44_base, 20, 300);
-		g.drawSprite(t44_tower, 20, 300 + (t44_base.height() - t44_tower.height()) / 2);
+		g.drawSprite(t44_tower, -20, 300 + (t44_base.height() - t44_tower.height()) / 2);
 
 		g.drawAnimatedSprite(sonic_walk, 300, 5);
 		g.drawAnimatedSprite(sonic_run, 300, 150);
 		g.drawAnimatedSprite(sonic_roll, 300, 300);
 	g.end2D();
+}
+
+void _Game::onPress(Point2 p)
+{
+
 }

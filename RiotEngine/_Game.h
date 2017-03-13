@@ -12,12 +12,16 @@ public:
 private:
 	bool onInit() override;
 	void onFree() override;
-	void onUpdate() override;
-	void onDraw() override;
+	void onUpdate(float dt) override;
+	void onDraw(Graphics &) override;
+	void onPress(Point2) override;
 
 	Texture tex, t34_1, t34_2, t44_1, t44_2;
 	Sprite sprite, t34_base, t34_tower, t44_base, t44_tower;
 	Texture sonic;
 	AnimatedSprite sonic_walk, sonic_run, sonic_roll;
+
+	Texture explo;
+	AnimatedSprite explosion;
 };
 

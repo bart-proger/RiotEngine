@@ -2,7 +2,8 @@
 #include <iostream>
 
 RiotEngineApp::RiotEngineApp():
-window_(nullptr) 
+	window_(nullptr),
+	frameTime_(0.f)
 {
 }
 
@@ -57,6 +58,8 @@ void RiotEngineApp::run()
 	SDL_Event e;
 	bool quit = false;
 
+	Uint32 ticks, start = SDL_GetTicks();
+
 	while (!quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
@@ -69,12 +72,12 @@ void RiotEngineApp::run()
 			{
 				switch (e.type)
 				{
-					case SDL_KEYDOWN:
-						onKeyDown(e.key.keysym.sym);
-						break;
-					case SDL_MOUSEBUTTONDOWN:
-						onPress({ e.button.x, e.button.y });
-						break;
+// 					case SDL_KEYDOWN:
+// 						onKeyDown(e.key.keysym.sym);
+// 						break;
+// 					case SDL_MOUSEBUTTONDOWN:
+// 						onPress({ e.button.x, e.button.y });
+// 						break;
 // 					case SDL_FINGERDOWN:
 // 						onPress({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
 // 						break;
@@ -94,8 +97,12 @@ void RiotEngineApp::run()
 			}
 		}
 
-		onUpdate();
-		onDraw();
+		ticks = SDL_GetTicks();
+		frameTime_ = (ticks - start) / 1000.f;
+		start = ticks;
+
+		onUpdate(frameTime_);
+		onDraw(graphics_);
 
 		SDL_GL_SwapWindow(window_);
 	}
