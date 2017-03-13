@@ -14,7 +14,7 @@ private:
 	void onFree() override;
 	void onUpdate(float dt) override;
 	void onDraw(Graphics &) override;
-	void onPress(Point2) override;
+	void onPress(Point2 ) override;
 
 	Texture tex, t34_1, t34_2, t44_1, t44_2;
 	Sprite sprite, t34_base, t34_tower, t44_base, t44_tower;

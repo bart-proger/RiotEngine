@@ -9,6 +9,7 @@
 #include <string>
 using std::string;
 #include "Graphics.h"
+#include "Math/Point2.h"
 
 class RiotEngineApp
 {

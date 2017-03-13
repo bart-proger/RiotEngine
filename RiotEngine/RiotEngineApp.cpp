@@ -75,9 +75,9 @@ void RiotEngineApp::run()
 // 					case SDL_KEYDOWN:
 // 						onKeyDown(e.key.keysym.sym);
 // 						break;
-// 					case SDL_MOUSEBUTTONDOWN:
-// 						onPress({ e.button.x, e.button.y });
-// 						break;
+ 					case SDL_MOUSEBUTTONDOWN:
+						onPress({ (float)e.button.x, (float)e.button.y });
+						break;
 // 					case SDL_FINGERDOWN:
 // 						onPress({ (int)(e.tfinger.x * width_), (int)(e.tfinger.y * height_) });
 // 						break;

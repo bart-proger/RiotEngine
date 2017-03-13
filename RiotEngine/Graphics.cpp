@@ -188,6 +188,9 @@ void Graphics::drawSprite(Sprite &s, int x, int y)
 
 void Graphics::drawAnimatedSprite(AnimatedSprite &s, int x, int y)
 {
+	if (s.currentFrame_ < 0)
+		return;
+
 	glPushMatrix();
 	glTranslated(x, y, 0);
 	glTranslated(s.pivot_.x, s.pivot_.y, 0);

@@ -36,8 +36,9 @@ bool _Game::onInit()
 	sonic_walk.create(sonic, 204, 0, 1024-204, 110, 10-2);
 	sonic_run.create(sonic, 0, 116, 410, 110, 4);
 	sonic_roll.create(sonic, 102, 240, 922-102, 82, 9-1);
+	sonic_roll.setInterval(1.f / 40);
 
-	explo.loadFromFile("data/explosion.png");
+	explo.loadFromFile("data/explosion2.png");
 	explosion.create(explo, 4, 4);
 	explosion.setLooped(false);
 
@@ -62,7 +63,11 @@ void _Game::onUpdate(float dt)
 	sonic_walk.animate(dt);
 	sonic_run.animate(dt);
 	sonic_roll.animate(dt);
+
+	explosion.animate(dt);
 }
+
+Point2 exploPos;
 
 void _Game::onDraw(Graphics &g)
 {
@@ -83,10 +88,13 @@ void _Game::onDraw(Graphics &g)
 		g.drawAnimatedSprite(sonic_walk, 300, 5);
 		g.drawAnimatedSprite(sonic_run, 300, 150);
 		g.drawAnimatedSprite(sonic_roll, 300, 300);
+
+		g.drawAnimatedSprite(explosion, exploPos.x, exploPos.y);
 	g.end2D();
 }
 
 void _Game::onPress(Point2 p)
 {
-
+	exploPos = p - Point2{explosion.frameWidth() / 2.f, explosion.frameHeight() / 2.f};
+	explosion.setFrame(0);
 }

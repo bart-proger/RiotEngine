@@ -61,6 +61,9 @@ void AnimatedSprite::create(Texture &t, int offsetX, int offsetY, int width, int
 
 void AnimatedSprite::animate(float dt)
 {
+	if (currentFrame_ < 0)
+		return;
+
 	currentFrame_ += (dt / interval_);
 	int count = frames_.size();
 
@@ -69,6 +72,6 @@ void AnimatedSprite::animate(float dt)
 		if (looped_)
 			currentFrame_ = (int)currentFrame_ % count + (currentFrame_ - (int)currentFrame_);
 		else
-			currentFrame_ = count - 1;
+			currentFrame_ = -1;
 	}
 }
